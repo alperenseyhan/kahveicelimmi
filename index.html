@@ -139,7 +139,6 @@
       z-index: 3;
     }
 
-    /* Evet tam ekran hale geldiğinde */
     .yes-fullscreen {
       position: fixed;
       inset: 0;
@@ -166,6 +165,11 @@
       justify-content: center;
       font-size: 4rem;
       z-index: 60;
+    }
+
+    /* YouTube çalar gizli */
+    #musicPlayer {
+      display: none;
     }
 
     @media (max-height: 600px) {
@@ -196,28 +200,40 @@
     </div>
 
     <div class="message" id="message"></div>
+
+    <!-- YouTube müzik embed -->
+    <iframe
+      id="musicPlayer"
+      width="0"
+      height="0"
+      src=""
+      frameborder="0"
+      allow="autoplay"
+    ></iframe>
   </div>
 
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const message = document.getElementById("message");
+    const musicPlayer = document.getElementById("musicPlayer");
 
     let growStep = 0;
-    const maxSteps = 6; // Kaç kere "Hayır"a basınca tam ekran olsun
+    const maxSteps = 6;
 
     yesBtn.addEventListener("click", () => {
-      // Eğer zaten tam ekran aşamasına geçildiyse dokunma
       if (yesBtn.classList.contains("yes-fullscreen")) return;
       message.textContent = "Pazar gününe ne dersin?";
+
+      // Müzik başlat
+      musicPlayer.src =
+        "https://www.youtube.com/embed/HOTNV9IG23U?autoplay=1&loop=1&playlist=HOTNV9IG23U";
     });
 
     noBtn.addEventListener("click", () => {
       if (yesBtn.classList.contains("yes-fullscreen")) return;
 
       growStep++;
-
-      // Evet butonunu her seferinde dramatik biçimde büyüt
       const widthPercent = Math.min(95, 56 + growStep * 8);
       const paddingY = 14 + growStep * 4;
       const paddingX = 26 + growStep * 10;
@@ -228,13 +244,11 @@
       yesBtn.style.padding = paddingY + "px " + paddingX + "px";
       yesBtn.style.fontSize = fontSize + "rem";
 
-      // Hayır butonunu aşağı kaçır, Evet'in altında kaybolmasın
       const offset = 14 + growStep * 18;
       noBtn.style.marginTop = offset + "px";
 
       message.textContent = "";
 
-      // Tam ekran eşiğine gelince
       if (growStep >= maxSteps) {
         yesBtn.textContent = " . ";
         yesBtn.classList.add("yes-fullscreen");
