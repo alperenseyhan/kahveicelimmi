@@ -1,162 +1,269 @@
-<style>
-  :root {
-    --bg-top: #2b1d14;        /* koyu espresso */
-    --bg-bottom: #1a120b;     /* bitter kahve */
-    --text: #f5f1ec;          /* krem */
-    --highlight: #e6c9a8;     /* latte köpüğü */
-    --accent: #c08457;        /* karamel */
-    --accent-soft: rgba(192, 132, 87, 0.22);
-    --border-soft: rgba(230, 201, 168, 0.35);
-    --radius-pill: 999px;
-    --shadow-soft: 0 10px 26px rgba(26, 18, 11, 0.75);
-  }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bi' kahve?</title>
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  <style>
+    :root {
+      --bg-top: #2b1d14;
+      --bg-bottom: #1a120b;
+      --text: #f5f1ec;
+      --highlight: #e6c9a8;
+      --accent: #c08457;
+      --accent-soft: rgba(192, 132, 87, 0.22);
+      --border-soft: rgba(230, 201, 168, 0.35);
+      --radius-pill: 999px;
+      --shadow-soft: 0 10px 26px rgba(26, 18, 11, 0.75);
+    }
 
-  body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    background: radial-gradient(
-      circle at top,
-      #6f4e37 0%,     /* kahve */
-      #3e2723 45%,    /* koyu kakao */
-      #120b08 100%    /* neredeyse siyah */
-    );
-    font-family: system-ui, -apple-system, BlinkMacSystemFont,
-      "SF Pro Text", sans-serif;
-    color: var(--text);
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .container {
-    width: 100%;
-    max-width: 480px;
-    padding: 16px 16px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      background: radial-gradient(
+        circle at top,
+        #6f4e37 0%,
+        #3e2723 45%,
+        #120b08 100%
+      );
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "SF Pro Text", sans-serif;
+      color: var(--text);
+    }
 
-  .top-gif {
-    display: flex;
-    justify-content: center;
-    margin-top: 4px;
-  }
+    .container {
+      width: 100%;
+      max-width: 480px;
+      padding: 16px 16px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      position: relative;
+      z-index: 5;
+    }
 
-  .top-gif img {
-    width: 96px;
-    height: 96px;
-    object-fit: contain;
-    border-radius: 24px;
-  }
+    .top-gif {
+      display: flex;
+      justify-content: center;
+      margin-top: 4px;
+    }
 
-  .question {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 1.9rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: var(--highlight);
-    text-shadow: 0 0 18px rgba(230, 201, 168, 0.45);
-  }
+    .top-gif img {
+      width: 96px;
+      height: 96px;
+      object-fit: contain;
+      border-radius: 24px;
+    }
 
-  .question span {
-    display: block;
-    margin-top: 6px;
-    font-size: 0.85rem;
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #cbb8a4;
-  }
+    .question {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 1.9rem;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--highlight);
+      text-shadow: 0 0 18px rgba(230, 201, 168, 0.45);
+    }
 
-  .buttons-wrapper {
-    margin-top: 26px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
+    .question span {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #cbb8a4;
+    }
 
-  button {
-    border: none;
-    border-radius: var(--radius-pill);
-    padding: 14px 26px;
-    font-size: 1.05rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow-soft);
-    transition: all 0.24s ease;
-  }
+    .buttons-wrapper {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 10;
+    }
 
-  #yesBtn {
-    background: radial-gradient(circle at top left, #e6c9a8, var(--accent));
-    color: #2b1d14;
-    width: 56%;
-    max-width: 260px;
-  }
+    button {
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 14px 26px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.24s ease;
+      white-space: nowrap;
+    }
 
-  #noBtn {
-    background: rgba(18, 11, 8, 0.96);
-    color: #f5f1ec;
-    border: 1px solid var(--border-soft);
-    font-size: 0.95rem;
-    padding: 10px 22px;
-  }
+    #yesBtn {
+      background: radial-gradient(circle at top left, #e6c9a8, var(--accent));
+      color: #2b1d14;
+      width: 56%;
+      max-width: 260px;
+    }
 
-  #yesBtn:hover {
-    box-shadow: 0 14px 30px rgba(192, 132, 87, 0.45);
-    transform: translateY(-2px);
-  }
+    #noBtn {
+      background: rgba(18, 11, 8, 0.96);
+      color: #f5f1ec;
+      border: 1px solid var(--border-soft);
+      font-size: 0.95rem;
+      padding: 10px 22px;
+    }
 
-  #noBtn:hover {
-    transform: translateY(-1px);
-  }
+    #yesBtn:hover {
+      box-shadow: 0 14px 30px rgba(192, 132, 87, 0.45);
+      transform: translateY(-2px);
+    }
 
-  .message {
-    margin-top: 18px;
-    min-height: 26px;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #f5f1ec;
-    text-shadow: 0 0 12px rgba(26, 18, 11, 0.9);
-  }
+    #noBtn:hover {
+      transform: translateY(-1px);
+    }
 
-  .yes-fullscreen {
-    position: fixed;
-    inset: 0;
-    border-radius: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    font-size: 2.4rem !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(
-      circle at top,
-      var(--accent-soft),
-      #1a120b
-    ) fixed;
-    box-shadow: none !important;
-    z-index: 50;
-  }
+    .message {
+      margin-top: 18px;
+      min-height: 26px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #f5f1ec;
+      text-shadow: 0 0 12px rgba(26, 18, 11, 0.9);
+      z-index: 3;
+    }
 
-  .heartbreak {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    z-index: 60;
-  }
+    .yes-fullscreen {
+      position: fixed;
+      inset: 0;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      font-size: 2.4rem !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(
+        circle at top,
+        var(--accent-soft),
+        #1a120b
+      ) fixed;
+      box-shadow: none !important;
+      z-index: 50;
+    }
 
-  #musicPlayer {
-    display: none;
-  }
-</style>
+    .heartbreak {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      z-index: 60;
+    }
+
+    #musicPlayer {
+      display: none;
+    }
+
+    @media (max-height: 600px) {
+      .question {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="top-gif">
+      <img
+        src="https://media.tenor.com/nZsn90X3OpYAAAAM/baby-cat-dancing-png.gif"
+        alt="Dancing cat"
+      />
+    </div>
+
+    <div class="question">
+      bi kahve içmeye
+      <span>ne dersin? ☕️</span>
+    </div>
+
+    <div class="buttons-wrapper">
+      <button id="yesBtn">Evet 🕺🏻</button>
+      <button id="noBtn">Hayır 😔</button>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <iframe
+      id="musicPlayer"
+      width="0"
+      height="0"
+      src=""
+      frameborder="0"
+      allow="autoplay"
+    ></iframe>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const musicPlayer = document.getElementById("musicPlayer");
+
+    let growStep = 0;
+    const maxSteps = 6;
+
+    yesBtn.addEventListener("click", () => {
+      if (yesBtn.classList.contains("yes-fullscreen")) return;
+      message.textContent = "o halde ne zaman diyoruz?";
+
+      musicPlayer.src =
+        "https://www.youtube.com/embed/HOTNV9IG23U?autoplay=1&loop=1&playlist=HOTNV9IG23U";
+    });
+
+    noBtn.addEventListener("click", () => {
+      if (yesBtn.classList.contains("yes-fullscreen")) return;
+
+      growStep++;
+      const widthPercent = Math.min(95, 56 + growStep * 8);
+      const paddingY = 14 + growStep * 4;
+      const paddingX = 26 + growStep * 10;
+      const fontSize = 1.05 + growStep * 0.12;
+
+      yesBtn.style.width = widthPercent + "%";
+      yesBtn.style.maxWidth = "none";
+      yesBtn.style.padding = paddingY + "px " + paddingX + "px";
+      yesBtn.style.fontSize = fontSize + "rem";
+
+      const offset = 14 + growStep * 18;
+      noBtn.style.marginTop = offset + "px";
+
+      message.textContent = "";
+
+      if (growStep >= maxSteps) {
+        yesBtn.textContent = " . ";
+        yesBtn.classList.add("yes-fullscreen");
+        yesBtn.style.pointerEvents = "none";
+        noBtn.style.display = "none";
+
+        const hb = document.createElement("div");
+        hb.className = "heartbreak";
+        hb.textContent = "💔";
+        document.body.appendChild(hb);
+      }
+    });
+  </script>
+</body>
+</html>
