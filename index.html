@@ -103,24 +103,45 @@
     height: 100dvh;
     border-radius: 0;
     padding: 0;
-    font-size: clamp(1.6rem, 8vw, 2.4rem);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
+    display: block;
     z-index: 50;
     box-shadow: none;
+    cursor: default;
+  }
+
+  .form-wrap{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--bg);
+  }
+
+  .form-header{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ink);
+    text-align: center;
+    padding: 18px 16px 12px;
+    flex-shrink: 0;
   }
 
   .steam{
-    font-size: 2.6rem;
+    font-size: 1.4rem;
+    display: inline-block;
     animation: float 2.2s ease-in-out infinite;
+    margin-right: 6px;
+  }
+
+  .form-frame{
+    flex: 1;
+    width: 100%;
+    border: none;
   }
 
   @keyframes float{
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-6px); }
   }
 
   .hayir{
@@ -205,10 +226,16 @@
     }
   });
 
+  const FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeLawQiSeQehWz4BTvhz5fXi4Q0KmVuaieIx7dWpSn2nx9VsQ/viewform?embedded=true";
+
   function goFull(){
     evetBtn.classList.add('full');
     evetBtn.removeAttribute('data-step');
-    evetBtn.innerHTML = '<span class="steam">☕</span><span>hadi başlayalım!</span>';
+    evetBtn.innerHTML =
+      '<div class="form-wrap">' +
+        '<div class="form-header"><span class="steam">☕</span>harika, hadi bir tarih seçelim</div>' +
+        '<iframe class="form-frame" src="' + FORM_EMBED_URL + '" loading="lazy">Yükleniyor…</iframe>' +
+      '</div>';
     hayirBtn.classList.add('hidden');
     headline.classList.add('fade');
   }
