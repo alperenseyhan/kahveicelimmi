@@ -59,6 +59,21 @@
     transform: translateY(-10px);
   }
 
+  .subtitle{
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 8px 0 auto;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+
+  .subtitle.fade{
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
   .buttons{
     display: flex;
     flex-direction: column;
@@ -160,6 +175,10 @@
   .hayir[data-step="4"]{ opacity: 0.4;  transform: scale(0.8);  font-size: 0.75rem; }
   .hayir[data-step="5"]{ opacity: 0.25; transform: scale(0.75); font-size: 0.7rem; }
 
+  .hayir:disabled{
+    cursor: not-allowed;
+  }
+
   .hayir.hidden{
     opacity: 0;
     transform: scale(0.5);
@@ -187,6 +206,7 @@
   const evetBtn = document.getElementById('evetBtn');
   const hayirBtn = document.getElementById('hayirBtn');
   const headline = document.getElementById('headline');
+  const subtitle = document.getElementById('subtitle');
 
   const hayirPhrases = [
     "hayır",
@@ -210,15 +230,19 @@
   const maxStep = hayirPhrases.length - 1; // 5
 
   hayirBtn.addEventListener('click', () => {
-    if (step >= maxStep) {
-      goFull();
-      return;
-    }
+    // son aşamaya zaten ulaşıldıysa "hayır" artık hiçbir şey yapmaz
+    if (step >= maxStep) return;
+
     step++;
     hayirBtn.textContent = hayirPhrases[step];
     hayirBtn.setAttribute('data-step', step);
     evetBtn.textContent = evetLabels[step];
     evetBtn.setAttribute('data-step', step);
+
+    // son aşamaya ulaşıldıysa "hayır" pasif hale gelsin
+    if (step === maxStep) {
+      hayirBtn.disabled = true;
+    }
   });
 
   evetBtn.addEventListener('click', () => {
@@ -239,6 +263,7 @@
       '</div>';
     hayirBtn.classList.add('hidden');
     headline.classList.add('fade');
+    subtitle.classList.add('fade');
   }
 </script>
 
